@@ -1,0 +1,81 @@
+<div id="content-header">
+  <img src="/images/homeworkination/show_homework.png" alt="homework" />
+  <h1>homeworks</h1>
+  <h3>Acadamic report</h3>
+  <div id="app-back-button">
+    <%= link_to_function image_tag("/images/buttons/back.png",:border => 0), "history.back()" %>
+  </div>
+</div>
+<div id="page-yield">
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg"> <%= flash[:notice] %> </p>
+  <% end %>
+  <h4><%= @student.full_name %> | <%= @student.batch.name %> | <%= @student.batch.course.full_name %></h4>
+
+  <table id="listing" wisth="100%">
+    <tr class="tr-head">
+      <td>Subject</td>
+      <% @homework_groups.each do |homework_group| %>
+        <td><%= homework_group.name %></td>
+      <% end %>
+      <td>Total</td>
+    </tr>
+    <% @subjects.each do |subject| %>
+      <tr class="tr-<%= cycle('odd','even') %>">
+        <td class="col-3"><%= subject.code %></td>
+        <% @mmg = 1;@g = 1 %>
+        <% @homework_groups.each do |homework_group| %>
+          <% @homework = homework.find_by_subject_id_and_homework_group_id(subject.id,homework_group.id) %>
+          <% homework_score = homeworkScore.find_by_student_id(@student.id, :conditions=>{:homework_id=>@homework.id}) unless @homework.nil? %>
+          <% if homework_group.homework_type == "MarksAndGrades" %>
+            <td class="col-3"><% unless @homework.nil?  %>
+                <%  unless homework_score.nil? %>
+                  <%= homework_score.marks%> | <%= @homework.maximum_marks  %> | <%= homework_score.grading_level.name %>
+                <% end %>
+              <%  end %></td>
+          <% elsif homework_group.homework_type == "Marks" %>
+            <td class="col-3"> <% unless @homework.nil? %>
+               <% unless homework_score.nil? %>
+          <%= homework_score.marks %> | <%= @homework.maximum_marks  %>
+        <% end %>
+        <% end %></td>
+          <% else %>
+            <td class="col-3"><%= homework_score.grading_level.name unless homework_score.nil? %></td>
+            <% @g = 0 %>
+          <% end %>
+        <% end %>
+        <% total_score = homeworkScore.new() %>
+        <% if @mmg == @g %>
+          <td class="col-1"><%= total_score.grouped_homework_subject_total(subject,@student,@type,@batch) %></td>
+        <% else %>
+          <td class="col-1">-</td>
+        <% end %>
+      </tr>
+    <% end %>
+    <tr class="tr-head">
+      <td>Total</td>
+      <% @max_total = 0 %>
+      <% @marks_total = 0 %>
+
+      <% @homework_groups.each do |homework_group| %>
+        <% if homework_group.homework_type == "MarksAndGrades" %>
+          <td><%= homework_group.total_marks(@student)[0] %></td>
+        <% elsif homework_group.homework_type == "Marks" %>
+          <td><%= homework_group.total_marks(@student)[0] %></td>
+        <% else %>
+          <td>-</td>
+        <% end %>
+        <% unless homework_group.homework_type == "Grades" %>
+          <% @max_total = @max_total + homework_group.total_marks(@student)[1] %>
+          <% @marks_total = @marks_total + homework_group.total_marks(@student)[0] %>
+        <%  end %>
+      <% end %>
+      <td></td>
+    </tr>
+  </table>
+  <% if @mmg == @g %>
+    <h4> Total Marks = <%="%.2f" %@marks_total %> | Aggregate % = <%="%.2f" %(@marks_total*100/@max_total) %> </h4>
+  <% end %>
+
+  <div class="extender"></div>
+</div>

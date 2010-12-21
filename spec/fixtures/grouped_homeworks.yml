@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  homework_group_id: 1
+  batch_id: 1
+
+two:
+  homework_group_id: 1
+  batch_id: 1
+
+# == Schema Information
+#
+# Table name: grouped_homeworks
+#
+#  id                :integer(4)      not null, primary key
+#  homework_group_id :integer(4)
+#  batch_id          :integer(4)
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+

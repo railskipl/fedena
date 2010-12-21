@@ -1,0 +1,62 @@
+<div id="content-header">
+   <img src="/images/homework/button_homeworks.gif" alt="homework" />
+  <h1>Homeworks</h1>
+  <h3>Academic report</h3>
+  <div id="app-back-button">
+    <%= link_to_function image_tag("/images/buttons/back.png",:border => 0), "history.back()" %>
+  </div>
+</div>
+<div id="page-yield">
+    <% unless flash[:notice].nil? %>
+    <p class="flash-msg"> <%= flash[:notice] %> </p>
+  <% end %>
+  <div class="box">
+<h4><%= @batch.name %> | <%= @batch.course.full_name %> | <%= @student.full_name %> | <%= @subject.name %></h4>
+
+<table id="listing" width="100%">
+  <tr class="tr-head">
+    <td>Title</td>
+    <td>Marks</td>
+    <td>Max Marks</td>
+    <td>Grade</td>
+<td align="center">Homework</td>
+<td align="center">Submission Date</td>
+  </tr>
+  <% @homework_groups.each do |homework_group| %>
+  <tr class="tr-<%= cycle('odd','even') %>">
+    <td class="col-3">
+      <%= homework_group.name %>
+    </td>
+<% homework = Homework.find_by_subject_id(@subject.id,:conditions=>{:homework_group_id=>homework_group.id}) %>
+<% homework_score = HomeworkScore.find_by_student_id(@student.id,:conditions=>{:homework_id=>homework.id}) unless homework.nil? %>
+<% if homework_group.homework_type == 'Marks' %>
+<td align="center"><%= homework_score.nil? ? '-' : homework_score.marks %></td>
+<td align="center"><%= homework_score.nil? ? '-' : homework.maximum_marks %></td>
+<td align="center">-</td>
+<% elsif homework_group.homework_type == 'Grades'%>
+<td align="center">-</td><td align="center">-</td>
+<td align="center"><%= homework_score.nil? ? '-' : homework_score.grading_level.name %></td>
+<% else %>
+<td align="center"><%= homework_score.nil? ? '-' : homework_score.marks %></td>
+<td align="center"><%= homework_score.nil? ? '-' : homework.maximum_marks %></td>
+<td align="center"><%= homework_score.nil? ? '-' : homework_score.grading_level.name %></td>
+<% end %>
+<td align="left">
+	<%= homework.nil? ? '-' :homework.description %>
+	</td>
+	<td align="left">
+		<%= homework.nil? ? '-' :homework.end_time %>
+		</td>
+	
+  </tr>
+  <% end %>
+</table>
+<br />
+
+
+    <script type="text/javascript" src="/javascripts/swfobject.js"></script>
+   
+
+
+    <div class="extender"></div>
+ </div></div>

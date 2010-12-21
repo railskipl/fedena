@@ -1,0 +1,174 @@
+<div id="content-header">
+  <img src="/images/student_details/student_details_logo.jpg" />
+  <h1>Student</h1>
+  <h3>Previous marks overview</h3>
+  <div id="app-back-button">
+    <%= link_to_function image_tag("/images/buttons/back.png",:border => 0), "history.back()" %>
+  </div>
+</div>
+<div id="inner-tab-menu">
+<ul>
+<li>
+ <%= link_to '► PDF ',:action=>'previous_years_marks_overview',:format=>"pdf",:params=>params %>
+</li>
+</ul>
+</div>
+
+<div id="page-yield">
+
+  <div class="box">
+    <div id="register">
+<%  @type = params[:type] %>
+<% this_user = User.find(session[:user_id]) if session[:user_id] %>
+<% unless this_user.student? %>
+        <div class="header">
+          <div class="prev">
+            <%= link_to '◄',:action=>'previous_years_marks_overview',:student=>@student.previous_student,:type=>@type  %>
+          </div>
+          <div class="month">
+            <%= @student.full_name %>
+          </div>
+
+          <div class="next">
+            <%= link_to '►',:action=>'previous_years_marks_overview',:student=>@student.next_student,:type=>@type  %>
+          </div>
+          <div class="extender"></div>
+        </div>
+<% end %>
+        </div>
+    <% @all_batches.each do |b| %>
+      <%   if @type == 'grouped' %>
+        <%   @grouped_homeworks = Groupedhomework.find_all_by_batch_id(b.id) %>
+        <%   @homework_groups = [] %>
+        <%   @grouped_homeworks.each do |x| %>
+          <%   @homework_groups.push homeworkGroup.find(x.homework_group_id) %>
+        <%   end %>
+      <% else %>
+        <%   @homework_groups = homeworkGroup.find_all_by_batch_id(b.id) %>
+      <%  end %>
+      <%  general_subjects = Subject.find_all_by_batch_id(b.id, :conditions=>"elective_group_id IS NULL AND is_deleted=false") %>
+      <%  student_electives = StudentsSubject.find_all_by_student_id(@student.id,:conditions=>"batch_id = #{b.id}") %>
+      <%  elective_subjects = [] %>
+      <%  student_electives.each do |elect| %>
+        <%    elective_subjects.push Subject.find(elect.subject_id) %>
+      <%  end %>
+      <%  @subjects = general_subjects + elective_subjects %>
+             <div id="register">
+        <div class="header2">
+          <div class="month">
+            <% homework = homeworkScore.new() %>
+            <% @aggr =  homework.batch_wise_aggregate(@student,b)  %>
+            <%= b.name %> | Aggregate : <%="%.2f" %@aggr.to_f unless @aggr== 'nil' or @aggr.nil? %>
+          </div>
+          <div class="extender"></div>
+        </div>
+      </div>
+      <table id="listing" width="100%">
+        <tr class="tr-head">
+          <td>Subject</td>
+          <% @homework_groups.each do |homework_group| %>
+            <td><%= homework_group.name %></td>
+          <% end %>
+          <td>Total</td>
+        </tr>
+
+        <% @subjects.each do |subject| %>
+          <tr class="tr-<%= cycle('odd', 'even') %>">
+            <td class="col-2" ><%= subject.name %></td>
+            <% @mmg = 1;@g = 1 %>
+
+            <% @homework_groups.each do |homework_group| %>
+
+              <% @homework = homework.find_by_subject_id_and_homework_group_id(subject.id,homework_group.id) %>
+              <% homework_score = homeworkScore.find_by_student_id(@student.id, :conditions=>{:homework_id=>@homework.id})unless @homework.nil? %>
+              <% unless homework_score.nil?  %>
+                <% if homework_group.homework_type == "MarksAndGrades" %>
+                  <td class="col-3"><% unless @homework.nil?  %>
+                      <%= homework_score.marks %> | <%= @homework.maximum_marks %> | <%= homework_score.grading_level.name %></td>
+                  <% end  %>
+                <% elsif homework_group.homework_type == "Marks" %>
+                  <td class="col-3"><%= homework_score.marks unless @homework.nil? %> | <%= @homework.maximum_marks unless @homework.nil?%></td>
+                <% else %>
+                  <td class="col-3"><%= homework_score.grading_level.name unless homework_score.nil?%></td>
+                  <% @g = 0 %>
+                <% end %>
+              <% else %>
+                <td></td>
+              <% end %>
+            <% end %>
+            <% total_score = homeworkScore.new() %>
+            <% if @mmg == @g %>
+              <td class="col-1"><%= total_score.grouped_homework_subject_total(subject,@student,@type,b) %></td>
+            <% else %>
+              <td class="col-1">-</td>
+            <% end %>
+          </tr>
+
+        <% end %>
+        <tr class="tr-head">
+          <td>Total</td>
+          <% @max_total = 0 %>
+          <% @marks_total = 0 %>
+
+          <% @homework_groups.each do |homework_group| %>
+            <% if homework_group.homework_type == "MarksAndGrades" %>
+              <td><%= homework_group.total_marks(@student)[0] %></td>
+            <% elsif homework_group.homework_type == "Marks" %>
+              <td><%= homework_group.total_marks(@student)[0] %></td>
+            <% else %>
+              <td>-</td>
+            <% end %>
+            <% unless homework_group.homework_type == "Grades" %>
+              <% @max_total = @max_total + homework_group.total_marks(@student)[1] %>
+              <% @marks_total = @marks_total + homework_group.total_marks(@student)[0] %>
+            <% end %>
+          <% end %>
+          <td></td>
+        </tr>
+        <tr></tr>
+      </table>
+      <br />
+      <% @additional_homework_groups = AdditionalhomeworkGroup.find_all_by_batch_id(b) %>
+      <% @additional_homework_groups.each do |additional_homework_group| %>
+        <% if additional_homework_group.students.include?(@student) %>
+          <div id="additional_register">
+            <div class="header2">
+              <div class="month">
+                <%= b.name+" | "+ additional_homework_group.name%>
+              </div>
+
+              <div class="extender"></div>
+            </div>
+          </div>
+          <% @additional_homeworks = Additionalhomework.find_all_by_additional_homework_group_id(additional_homework_group) %>
+          <table id="additional_listing" width="100%">
+            <tr class="tr-head">
+              <td>Subject</td>
+              <% unless additional_homework_group.homework_type == "Grades" %>      <td>Marks</td> <% end %>
+              <% unless additional_homework_group.homework_type == "Marks" %> <td> Grades </td><% end %>
+            </tr>
+            <% @additional_homeworks.each do |homework| %>
+              <% unless (homework.score_for(@student).marks.nil? &&  homework.score_for(@student).grading_level_id.nil?)   %>
+                <tr  class="tr-<%= cycle('odd', 'even') %>">
+                  <td class="col-3" ><%= homework.subject.name %></td>
+                  <% unless additional_homework_group.homework_type == "Grades" %>  <td class="col-3"><%= homework.score_for(@student).marks  %> </td> <% end %>
+                  <% unless additional_homework_group.homework_type == "Marks" %> <td class="col-3"><%= homework.score_for(@student).grading_level %> </td> <% end %>
+                </tr>
+              <% end %>
+            <% end %>
+          </table>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <br />
+    <br />
+    <%  unless @aggr == 'nil'  %>
+      <script type="text/javascript" src="/javascripts/swfobject.js"></script>
+      <%= @graph %>
+    <% end  %>
+
+
+
+    <div class="extender"></div>
+  </div></div>

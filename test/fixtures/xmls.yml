@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value
+
+# == Schema Information
+#
+# Table name: xmls
+#
+#  id           :integer(4)      not null, primary key
+#  finance_name :string(255)
+#  ledger_name  :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+

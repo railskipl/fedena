@@ -1,0 +1,1 @@
+<%= select :homework_report, :homework_group_id, @homework_groups.map{|homework| [homework.name,homework.id]},:prompt=>'Select homework group' %>

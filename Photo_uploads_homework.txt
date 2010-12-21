@@ -1,0 +1,96 @@
+1.Model: student.rb
+
+def image_file=(input_data)
+   return if input_data.blank?
+   self.photo_filename     = input_data.original_filename
+   self.photo_content_type = input_data.content_type.chomp
+   self.photo_data         = input_data.read
+ end
+
+Db:table:students
+#  photo_filename       :string(255)
+#  photo_content_type   :string(255)
+#  photo_data           :binary(16777215
+
+
+Table name: archived_students
+
+#  photo_filename       :string(255)
+#  photo_content_type   :string(255)
+#  photo_data           :binary(16777215)
+
+
+2.Controller: student_controller 
+
+def show
+   @student = Student.find_by_admission_no(params[:id])
+   send_data(@student.photo_data,
+     :type => @student.photo_content_type,
+     :filename => @student.photo_filename,
+     :disposition => 'inline')
+ end
+
+
+
+3.app/views/student: show.rhtml
+
+<% unless @student.photo_data.blank? %>
+  <%= image_tag(url_for({:controller => 'student', :action =>
+      'show', :id => @student.id}))%>
+<% end %>
+
+4.app/views/student: show_previous_details.rhtml
+
+<div id="profile_picture_display">
+  <% unless @student.photo_data.blank? %>
+    <img src="<%= url_for(:controller=>"student", :action => "show", :id => @student.admission_no) %>"  />
+  <% else %>
+    <%= image_tag "master_student/profile/topbanner.png" %>
+  <% end %>
+</div>
+
+
+5.app/views/student: profile.rhtml
+
+<div id="profile_picture_display">
+  <% unless @student.photo_data.blank? %>
+    <img src="<%= url_for(:controller=>"student", :action => "show", :id => @student.admission_no) %>"  />
+  <% else %>
+    <%= image_tag "master_student/profile/default_student.png" %>
+  <% end %>
+</div>
+
+6.app/views/archived_student: profile.rhtml
+
+<div id="profile_picture_display">
+     <% unless @archived_student.photo_data.blank? %>
+       <img src="<%= url_for(:controller=>"student", :action => "show", :id => @archived_student.admission_no) %>"  />
+     <% else %>
+       <%= image_tag "master_student/profile/topbanner.png" %>
+     <% end %>
+   </div>
+
+7.app/views/student: edit.rhtml
+
+
+	<span class="span-sub-heading">Upload User photo</span>
+   <hr class="sub-heading"></hr>
+
+   <div class="label-field-pair">
+     <label for="master_student_image_file">Upload photo (50KB max)</label>
+     <div class="text-input-bg"><%= s.file_field :image_file %></div>
+   </div>
+
+8.views/student/admission1.html.erb
+
+
+	<script>
+     (function($){$.fn.filestyle=function(options){var settings={width:250};if(options){$.extend(settings,options);};return this.each(function(){var self=this;var wrapper=$("<div>").css({"width":settings.imagewidth+"px","height":settings.imageheight+"px","background":"url("+settings.image+") 0 0 no-repeat","background-position":"right","display":"inline","position":"absolute","overflow":"hidden"});var filename=$('<input class="file">').addClass($(self).attr("class")).css({"display":"inline","width":settings.width+"px"});$(self).before(filename);$(self).wrap(wrapper);$(self).css({"position":"relative","height":settings.imageheight+"px","width":settings.width+"px","display":"inline","cursor":"pointer","opacity":"0.0"});if($.browser.mozilla){if(/Win/.test(navigator.platform)){$(self).css("margin-left","-142px");}else{$(self).css("margin-left","-168px");};}else{$(self).css("margin-left",settings.imagewidth-settings.width+"px");};$(self).bind("change",function(){filename.val($(self).val());});});};})(jQuery);
+   </script>
+   <span class="span-sub-heading">Upload User Photo</span>
+   <hr class="sub-heading"></hr>
+   <div class="label-field-pair">
+     <label for="student_image_file">Upload photo (50KB max)</label>
+     <div class="text-input-bg"><%= s.file_field :image_file %></div>
+
+   </div>

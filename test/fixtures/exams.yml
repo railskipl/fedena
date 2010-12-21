@@ -1,0 +1,55 @@
+--- 
+exams_001: 
+  id: "1"
+  subject_id: "1"
+  exam_group_id: "1"
+  maximum_marks: "100"
+  minimum_marks: "35"
+  weightage: 0
+  start_time: 2010-05-11 11:23:00
+  end_time: 2010-05-11 11:23:00
+  created_at: 2010-05-11 10:13:38
+  updated_at: 2010-05-11 10:13:38
+
+exams_002: 
+  id: "2"
+  subject_id: "2"
+  exam_group_id: "1"
+  maximum_marks: "100"
+  minimum_marks: "35"
+  weightage: 0
+  start_time: 2010-05-11 11:23:00
+  end_time: 2010-05-11 11:23:00
+  created_at: 2010-05-11 10:13:38
+  updated_at: 2010-05-11 10:13:38
+
+#exams_003:
+#  id: "3"
+#  subject_id: "3"
+#  exam_group_id: "1"
+#  maximum_marks: "100"
+#  minimum_marks: "35"
+#  weightage: 0
+#  end_time: 2010-05-11 11:23:00
+#  start_time: 2010-05-11 11:23:00
+#  created_at: 2010-05-11 10:13:38
+#  updated_at: 2010-05-11 10:13:38
+
+# == Schema Information
+#
+# Table name: exams
+#
+#  id               :integer(4)      not null, primary key
+#  exam_group_id    :integer(4)
+#  subject_id       :integer(4)
+#  start_time       :datetime
+#  end_time         :datetime
+#  maximum_marks    :integer(4)
+#  minimum_marks    :integer(4)
+#  grading_level_id :integer(4)
+#  weightage        :integer(4)      default(0)
+#  event_id         :integer(4)
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+

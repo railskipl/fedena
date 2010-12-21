@@ -1,0 +1,2 @@
+/Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/rails-2.3.5/lib/rails/gem_dependency.rb:119:Warning: Gem::Dependency#version_requirements is deprecated and will be removed on or after August 2010.  Use #requirement
+[ pid=8154 thr=0x100621000 file=ext/nginx/HelperAgent.cpp:568 time=2010-12-07 15:50:18.106 ]: Couldn't forward the HTTP response back to the HTTP client: It seems the user clicked on the 'Stop' button in his browser.

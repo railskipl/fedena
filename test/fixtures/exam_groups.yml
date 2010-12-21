@@ -1,0 +1,21 @@
+--- 
+exam_groups_001: 
+  name: Annual Exam
+  batch_id: "1"
+  id: "1"
+  exam_date: "2010-05-11"
+  exam_type: "Marks"
+
+# == Schema Information
+#
+# Table name: exam_groups
+#
+#  id               :integer(4)      not null, primary key
+#  name             :string(255)
+#  batch_id         :integer(4)
+#  exam_type        :string(255)
+#  is_published     :boolean(1)      default(FALSE)
+#  result_published :boolean(1)      default(FALSE)
+#  exam_date        :date
+#
+

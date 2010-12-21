@@ -1,0 +1,47 @@
+<div id="content-header">
+  <img src="/images/homework/button_homeworks.gif" alt="homework" />
+  <h1>Homeworks</h1>
+  <h3>Home</h3>
+  <div id="app-back-button">
+    <%= link_to_function image_tag("/images/buttons/back.png",:border => 0), "history.back()" %>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg"> <%= flash[:notice] %> </p>
+  <% end %>
+
+  <div class="box">
+    <%  if permitted_to? :index,:grading_levels %>
+      <div class="link-box">
+        <div class="link-heading"><%= link_to 'Set grading levels' ,:controller=>'grading_levels',:action=>'index' %> </div>
+        <div class="link-descr">Set the Grading Levels</div>
+      </div>
+    <% end %>
+    <%  if permitted_to? :create_homework,:homework %>
+      <div class="link-box">
+        <div class="link-heading"><%= link_to 'Homework Management' ,:action=>'create_homework' %>  </div>
+        <div class="link-descr">Create new homeworks, enter results.</div>
+      </div>
+    <% end %>
+    <%  if permitted_to? :create_additional_homework,:additional_homework %>
+      <div class="link-box">
+        <div class="link-heading"><%= link_to 'Additional homeworks' ,:controller=>'additional_homework' , :action=>'create_additional_homework' %></div>
+        <div class="link-descr">Create additional homeworks, Edit results</div>
+      </div>
+    <% end %>
+    <div class="link-box">
+      <div class="link-heading"><%= link_to 'Homework Wise report' ,:action=>'homework_wise_report' %></div>
+      <div class="link-descr">Generates reports homework wise</div>
+    </div>
+    <div class="link-box">
+      <div class="link-heading"><%= link_to 'Subject Wise report' ,:action=>'subject_wise_report' %> </div>
+      <div class="link-descr">Generates reports Subject wise</div>
+    </div>
+    
+    <div class="extender"></div>
+  </div>
+</div>
+

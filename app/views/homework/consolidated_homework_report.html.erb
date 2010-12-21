@@ -1,0 +1,54 @@
+<div id="content-header">
+ <img src="/images/homework/button_homeworks.gif" alt="homework" />
+  <h1>Homeworks</h1>
+  <h3>Consolidated Report</h3>
+  <div id="app-back-button">
+    <%= link_to_function image_tag("/images/buttons/back.png",:border => 0), "history.back()" %>
+  </div>
+</div>
+<div id="inner-tab-menu">
+  <ul>
+    <li><%= link_to "PDF Report",{:controller => "homework", :action => "consolidated_homework_report_pdf", :homework_group => @homework_group.id},:target => '_blank' %></li>
+  </ul>
+</div>
+<div id="page-yield">
+
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg"> <%= flash[:notice] %> </p>
+  <% end %>
+
+  <div class="box">
+    <h4><%= @homework_group.batch.name %> | <%= @homework_group.name %></h4>
+    <div class="students-table">
+      <table id="listing" align="center" width="100%" cellpadding="1" cellspacing="1">
+        <tr class="tr-head">
+          <td>Name</td>
+          <% @homework_group.homeworks.each do |homework| %>
+            <td><%= homework.subject.code %><%= "(" + homework.maximum_marks.to_s + ")"  unless homework.maximum_marks.nil? %></td>
+          <% end %>
+          <td>Percentage(%)</td> 
+        </tr>
+        <% @homework_group.batch.students.each do |student|%>
+          <tr class="tr-<%= cycle('odd', 'even') %>">
+            <td class="col-2"><%= student.full_name %></td>
+            <% total_marks = 0 %>
+            <% total_max_marks = 0 %>
+            <% @homework_group.homeworks.each do |homework| %>
+              <% homework_score = HomeworkScore.find_by_student_id_and_homework_id(student.id,homework.id) %>
+              <% unless @homework_group.homework_type == "Grades" %>
+              <td class="col-3"><%= homework_score.nil? ? '-' : homework_score.marks %></td>
+                <% total_marks = total_marks+homework_score.marks unless homework_score.nil?  %>
+                <% total_max_marks = total_max_marks+homework.maximum_marks unless homework_score.nil? %>
+              <% else %>
+                <td class="col-3"><%= homework_score.nil? ? '-' : homework_score.grading_level.name %></td>
+              <% end %>
+            <% end %>
+
+            <td class="col-4"><% percentage = total_marks*100/total_max_marks.to_f unless total_max_marks == 0%>
+              <%= "%.2f" %percentage unless total_max_marks == 0 %></td>
+          </tr>
+        <% end %>
+      </table</div>
+    <div class="extender"></div>
+  </div>
+</div>

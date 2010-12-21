@@ -1,0 +1,207 @@
+
+s1:
+  id: 1
+  admission_no: 1
+  admission_date: <%= Date.today %>
+  date_of_birth: <%= Date.today - 5.years %>
+  first_name: John
+  last_name: Doe
+  address_line1: ''
+  address_line2: ''
+  batch_id: 1
+  gender: m
+  country_id: 76
+  nationality_id: 76
+  student_category_id: 1
+
+s2:
+  id: 2
+  admission_no: 2
+  admission_date: <%= Date.today %>
+  date_of_birth: <%= Date.today - 6.years %>
+  first_name: Samantha
+  last_name: Fowler
+  address_line1: ''
+  address_line2: ''
+  batch_id: 1
+  gender: f
+  country_id: 76
+  nationality_id: 76
+  student_category_id: 2
+
+s3:
+  id: 3
+  admission_no: 3
+  admission_date: <%= Date.today %>
+  date_of_birth: <%= Date.today - 7.years %>
+  first_name: Steve
+  last_name: Connelly
+  address_line1: ''
+  address_line2: ''
+  batch_id: 1
+  gender: m
+  country_id: 76
+  nationality_id: 76
+  student_category_id: 1
+
+s4:
+  id: 4
+  admission_no: 4
+  admission_date: <%= Date.today %>
+  date_of_birth: <%= Date.today - 8.years %>
+  first_name: Laura
+  last_name: Fuller
+  address_line1: ''
+  address_line2: ''
+  batch_id: 1
+  gender: f
+  country_id: 76
+  nationality_id: 76
+  student_category_id: 2
+
+s5:
+  id: 5
+  admission_no: 5
+  admission_date: <%= Date.today %>
+  date_of_birth: <%= Date.today - 9.years %>
+  first_name: David
+  last_name: Fletcher
+  address_line1: ''
+  address_line2: ''
+  batch_id: 1
+  gender: m
+  country_id: 76
+  nationality_id: 76
+  student_category_id: 1
+
+s6:
+  id: 6
+  admission_no: 6
+  admission_date: <%= Date.today %>
+  date_of_birth: <%= Date.today - 5.years %>
+  first_name: Kathryn
+  last_name: Howard
+  address_line1: ''
+  address_line2: ''
+  batch_id: 1
+  gender: f
+  country_id: 76
+  nationality_id: 76
+  student_category_id: 2
+
+s7:
+  id: 7
+  admission_no: 7
+  admission_date: <%= Date.today %>
+  date_of_birth: <%= Date.today - 5.years %>
+  first_name: Jeff
+  last_name: Hardy
+  address_line1: ''
+  address_line2: ''
+  batch_id: 1
+  gender: m
+  country_id: 76
+  nationality_id: 76
+  student_category_id: 1
+
+s8:
+  id: 8
+  admission_no: 8
+  admission_date: <%= Date.today %>
+  date_of_birth: <%= Date.today - 5.years %>
+  first_name: Camilla
+  last_name: Leonard
+  address_line1: ''
+  address_line2: ''
+  batch_id: 1
+  gender: f
+  country_id: 76
+  nationality_id: 76
+  student_category_id: 2
+
+s9:
+  id: 9
+  admission_no: 9
+  admission_date: <%= Date.today %>
+  date_of_birth: <%= Date.today - 6.years %>
+  first_name: Roy
+  last_name: Marscher
+  address_line1: ''
+  address_line2: ''
+  batch_id: 2
+  gender: m
+  country_id: 76
+  nationality_id: 76
+  student_category_id: 1
+
+s10:
+  id: 10
+  admission_no: 10
+  admission_date: <%= Date.today %>
+  date_of_birth: <%= Date.today - 7.years %>
+  first_name: Emily
+  last_name: Malcolm
+  address_line1: ''
+  address_line2: ''
+  batch_id: 2
+  gender: f
+  country_id: 76
+  nationality_id: 76
+  student_category_id: 2
+
+s11:
+  id: 11
+  admission_no: 11
+  admission_date: <%= Date.today %>
+  date_of_birth: <%= Date.today - 5.years %>
+  first_name: Benjamin
+  last_name: Murphy
+  address_line1: ''
+  address_line2: ''
+  batch_id: 2
+  gender: m
+  country_id: 76
+  nationality_id: 76
+  student_category_id: 2
+
+# == Schema Information
+#
+# Table name: students
+#
+#  id                   :integer(4)      not null, primary key
+#  admission_no         :string(255)
+#  class_roll_no        :string(255)
+#  admission_date       :date
+#  first_name           :string(255)
+#  middle_name          :string(255)
+#  last_name            :string(255)
+#  batch_id             :integer(4)
+#  date_of_birth        :date
+#  gender               :string(255)
+#  blood_group          :string(255)
+#  birth_place          :string(255)
+#  nationality_id       :integer(4)
+#  language             :string(255)
+#  religion             :string(255)
+#  student_category_id  :integer(4)
+#  address_line1        :string(255)
+#  address_line2        :string(255)
+#  city                 :string(255)
+#  state                :string(255)
+#  pin_code             :string(255)
+#  country_id           :integer(4)
+#  phone1               :string(255)
+#  phone2               :string(255)
+#  email                :string(255)
+#  immediate_contact_id :integer(4)
+#  is_sms_enabled       :boolean(1)      default(TRUE)
+#  photo_filename       :string(255)
+#  photo_content_type   :string(255)
+#  photo_data           :binary(16777215
+#  status_description   :string(255)
+#  is_active            :boolean(1)      default(TRUE)
+#  is_deleted           :boolean(1)      default(FALSE)
+#  created_at           :datetime
+#  updated_at           :datetime
+#
+

@@ -1,0 +1,35 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  batch_id: 1
+  homework_type: MyString
+  is_published: false
+  result_published: false
+  homework_date: 2010-12-16
+
+two:
+  name: MyString
+  batch_id: 1
+  homework_type: MyString
+  is_published: false
+  result_published: false
+  homework_date: 2010-12-16
+
+
+
+# == Schema Information
+#
+# Table name: homework_groups
+#
+#  id               :integer(4)      not null, primary key
+#  name             :string(500)
+#  batch_id         :integer(4)
+#  homework_type    :string(255)
+#  is_published     :boolean(1)
+#  result_published :boolean(1)
+#  homework_date    :date
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+

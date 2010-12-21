@@ -1,0 +1,17 @@
+** Daemonized, any open files are closed.  Look at log/mongrel.pid and log/mongrel.log for info.
+** Starting Mongrel listening at 0.0.0.0:80
+/Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/../lib/mongrel/tcphack.rb:12:in `initialize_without_backlog': Permission denied - bind(2) (Errno::EACCES)
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/../lib/mongrel/tcphack.rb:12:in `initialize'
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/../lib/mongrel.rb:93:in `new'
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/../lib/mongrel.rb:93:in `initialize'
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/../lib/mongrel/configurator.rb:139:in `new'
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/../lib/mongrel/configurator.rb:139:in `listener'
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/mongrel_rails:99:in `cloaker_'
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/../lib/mongrel/configurator.rb:50:in `call'
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/../lib/mongrel/configurator.rb:50:in `initialize'
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/mongrel_rails:84:in `new'
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/mongrel_rails:84:in `run'
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/../lib/mongrel/command.rb:212:in `run'
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/mongrel-1.1.5/bin/mongrel_rails:281
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/bin/mongrel_rails:19:in `load'
+	from /Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/bin/mongrel_rails:19

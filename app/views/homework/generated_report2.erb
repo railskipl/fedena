@@ -1,0 +1,66 @@
+<div id="content-header">
+   <img src="/images/homework/button_homeworks.gif" alt="homework" />
+  <h1>Homeworks</h1>
+  <h3>Generated Report</h3>
+  <div id="app-back-button">
+    <%= link_to_function image_tag("/images/buttons/back.png",:border => 0), "history.back()" %>
+  </div>
+</div>
+<div id="inner-tab-menu">
+  <ul>
+   <li><%= link_to "PDF Report", {:controller => "homework", :action => "generated_report2_pdf", :subject_id=> @subject.id},:target => '_blank', :class=> 'user_button' %></li>
+  </ul>
+</div>
+
+<div id="page-yield">
+
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg"> <%= flash[:notice] %> </p>
+  <% end %>
+
+    <div class="box">
+    <h4><%= @batch.name %> - <%= @batch.course.full_name %> | <%= @subject.name %></h4>
+      <table id="listing" width="100%" cellpadding="1" cellspacing="1">
+        <tr class="tr-head">
+          <td>Name</td>
+          <% @homework_groups.each do |homework_group| %>
+            <td><%= homework_group.name %></td>
+          <% end %>
+        </tr>
+        <% @students.each do |student| %>
+          <tr class="tr-<%= cycle('odd', 'even') %>">
+            <td class="col-2"><%= student.full_name %></td>
+            <% @homework_groups.each do |homework_group| %>
+              <td class="col-3">
+                <% homework = Homework.find_by_subject_id(@subject.id,:conditions=>{:homework_group_id=>homework_group.id}) %>
+                <% homework_score = HomeworkScore.find_by_student_id(student.id,:conditions=>{:homework_id=>homework.id}) unless homework.nil? %>
+                <% if homework_group.homework_type == 'Marks' %>
+                  <%= homework_score.nil? ? '-' : homework_score.marks.to_s+"/"+homework.maximum_marks.to_s %>
+                <% elsif homework_group.homework_type == 'Grades'%>
+                  <%= homework_score.nil? ? '-' : homework_score.grading_level.name %>
+                <% else %>
+                  <%= homework_score.nil? ? '-' : homework_score.marks.to_s+"/"+homework.maximum_marks.to_s+"["+homework_score.grading_level.name+"]" %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+        <tr class="tr-head">
+          <td>
+            Class Avg
+          </td>
+          <% @homework_groups.each do |homework_group| %>
+            <% if homework_group.homework_type == 'Marks' or homework_group.homework_type == 'MarksAndGrades' %>
+              <% homework = Homework.find_by_subject_id(@subject.id,:conditions=>{:homework_group_id=>homework_group.id}) %>
+              <td>
+                <%="%.2f"%homework_group.subject_wise_batch_average_marks(@subject.id) unless homework.nil?%>
+              </td>
+            <% else %>
+              <td>-</td>
+            <% end %>
+          <% end %>
+        </tr>
+      </table>
+    <div class="extender"></div>
+  </div>
+</div>

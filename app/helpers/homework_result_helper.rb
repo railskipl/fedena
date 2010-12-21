@@ -1,0 +1,2 @@
+module HomeworkResultHelper
+end

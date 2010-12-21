@@ -1,0 +1,48 @@
+<% form_for([@batch, @homework_group],:html => {:multipart => true}) do |f| %>
+
+  <%= f.error_messages %>
+  <div class="label-field-pair">
+    <%= f.label :name %>
+     <div class="label-field-pair"> <div class="text-input-bg">
+  <%= f.text_field :name, :value=>@name %>
+    </div></div>
+  </div>
+
+  <div class="label-field-pair">
+   <%= f.label :homework_type %>
+    <%= f.hidden_field :homework_type,:value=>@type %>
+    <div class="text-input-bg">
+    <%= f.text_field :homework_type, :value=>@type,:disabled=>true %>
+    </div>  <%= link_to "Change Type", new_batch_homework_group_path(@batch,:ename=>@name),:class=>"type_link" %>
+  </div>
+  <h4>
+    Enter homework related details here:
+  </h4>
+
+  <table width="100%" id="listing">
+    <tr class="tr-head">
+      <td>Subject name</td>
+      <td>Start time</td>
+      <td>End time</td>
+      <td>Do not create</td>
+<td>Description</td>
+    </tr>
+
+    <% f.fields_for :homeworks do |homework_form| %>
+      <tr class="tr-<%= cycle('odd', 'even') %>">
+        <td class="col-2"> <div class="label-field-pair3"> <div class="text-input-bg3"><%= homework_form.object.subject.name %><%= homework_form.hidden_field :subject_id %></div></div></td>
+        <td class="col-2"> <div class="label-field-pair3"> <div class="text-input-bg3"><%= homework_form.calendar_date_select :start_time %></div></div></td>
+        <td class="col-3"> <div class="label-field-pair3"> <div class="text-input-bg3"><%= homework_form.calendar_date_select :end_time %></div></div></td>
+        <td class="col-1"><%= homework_form.check_box :_delete %></td>
+        <td>
+	  
+	     <div class="text-input-bg"><%= homework_form.text_area :description,:rows => 2 %></div>
+
+	   </div></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= submit_tag "", :value => "► Save Changes", :class => "submit_button2" %>
+
+<% end %>

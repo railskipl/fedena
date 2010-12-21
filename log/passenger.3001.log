@@ -1,0 +1,28 @@
+/Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/rails-2.3.5/lib/rails/gem_dependency.rb:119:Warning: Gem::Dependency#version_requirements is deprecated and will be removed on or after August 2010.  Use #requirement
+The {{key}} interpolation syntax in I18n messages is deprecated. Please use %{key} instead.
+en - {{count}} days
+
+The {{key}} interpolation syntax in I18n messages is deprecated. Please use %{key} instead.
+en - {{count}} days
+
+The {{key}} interpolation syntax in I18n messages is deprecated. Please use %{key} instead.
+en - {{count}} days
+
+The {{key}} interpolation syntax in I18n messages is deprecated. Please use %{key} instead.
+en - {{count}} days
+
+The {{key}} interpolation syntax in I18n messages is deprecated. Please use %{key} instead.
+en - {{count}} days
+
+/Users/kunalsupe/Developer/.rvm/gems/ruby-1.8.7-p302/gems/rails-2.3.5/lib/rails/gem_dependency.rb:119:Warning: Gem::Dependency#version_requirements is deprecated and will be removed on or after August 2010.  Use #requirement
+[ pid=6675 thr=0x1002e7000 file=ext/nginx/HelperAgent.cpp:568 time=2010-12-07 15:20:11.213 ]: Couldn't forward the HTTP response back to the HTTP client: It seems the user clicked on the 'Stop' button in his browser.
+The {{key}} interpolation syntax in I18n messages is deprecated. Please use %{key} instead.
+en - {{count}} days
+
+The {{key}} interpolation syntax in I18n messages is deprecated. Please use %{key} instead.
+en - {{count}} days
+
+The {{key}} interpolation syntax in I18n messages is deprecated. Please use %{key} instead.
+en - {{count}} days
+
+[ pid=6675 thr=0x100759000 file=ext/nginx/HelperAgent.cpp:568 time=2010-12-07 16:16:57.560 ]: Couldn't forward the HTTP response back to the HTTP client: It seems the user clicked on the 'Stop' button in his browser.

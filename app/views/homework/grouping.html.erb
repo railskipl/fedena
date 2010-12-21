@@ -1,0 +1,46 @@
+<div id="content-header">
+  <img src="/images/homeworkination/show_homework.png" alt="homework" />
+  <h1>Homeworks</h1>
+  <h3>Grouping</h3>
+  <div id="app-back-button">
+    <%= link_to_function image_tag("/images/buttons/back.png",:border => 0), "history.back()" %>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg"> <%= flash[:notice] %> </p>
+  <% end %>
+
+  <div class="box">
+    <h4>Connect homeworks</h4>
+      <div id="list_content">
+      <div id="list">
+         <% unless @homework_groups.empty? %>
+
+          <% form_for :homework_grouping do |f| %>
+            <% @homework_groups.each do |e| %>
+              <div class="name_list<%=cycle('odd', 'even')%>">
+                <% already_grouped = Groupedhomework.find_by_batch_id_and_homework_group_id(@batch.id,e) %>
+                <% if already_grouped.nil? %>
+                  <li>
+                    <label><%= check_box_tag "homework_grouping[homework_group_ids][]", e.id %>
+                      <div class="att_list_names"><%= e.name %></div></label></li>
+                <% else %>
+                  <li><label><%= check_box_tag "homework_grouping[homework_group_ids][]", e.id, :checked=>true %><div class="att_list_names"> <%= e.name %></div></label></li>
+                <% end %>
+              </div>
+            <% end %>
+
+            <%= submit_tag "", :value => "Save", :class => "submit_button" %>
+          <% end %>
+
+        <% end %>
+
+
+      </div>
+    </div>    <div class="extender"></div>
+  </div>
+</div>
+
